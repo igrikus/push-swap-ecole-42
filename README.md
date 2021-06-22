@@ -4,4 +4,4 @@ This project sorts the data on the stack using a limited set of instructions, us
 
 It is necessary to manipulate different types of algorithms and choose one (out of many) the most suitable solutions for optimized data sorting in order to succeed
 
-Check *subject.pdf* for more information
+Check *[subject.pdf](https://github.com/igrikus/push-swap-ecole-42/files/6695964/subject.pdf)* for more information
