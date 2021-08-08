@@ -17,7 +17,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT_DIR)
-	$(CC) -o $(NAME) $(OBJ) -L $(LIBFT_DIR)
+	$(CC) -o $(NAME) $(OBJ) -L $(LIBFT_DIR) -lft
 
 $(OBJ): $(SRC)
 	$(CC) $(CFLAGS) -c -o $@ $<

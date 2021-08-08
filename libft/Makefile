@@ -1,4 +1,4 @@
-NAME    = ../libft.a
+NAME    = libft.a
 
 SOURCE    = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_strlen.c\
 			ft_memchr.c ft_memcmp.c ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c\
@@ -36,7 +36,7 @@ endif
 
 fclean: clean
 ifeq ($(OS),Windows_NT)
-	@del $(subst /,\,$(NAME))
+	@del $(NAME)
 else
 	@rm -f $(NAME)
 endif
