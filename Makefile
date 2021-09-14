@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_DIR = src/
-SRC_FILES = main.c
+SRC_FILES = push_swap.c is_arg_valid.c
 SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))
 
 OBJ_DIR = obj/
@@ -19,7 +19,7 @@ $(NAME): $(OBJ)
 	@make -C $(LIBFT_DIR)
 	$(CC) -o $(NAME) $(OBJ) -L $(LIBFT_DIR) -lft
 
-$(OBJ): $(SRC)
+$(OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
