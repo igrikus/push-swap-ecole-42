@@ -45,6 +45,7 @@ static bool is_arg_without_duplicates(char **argv)
 
 bool is_arg_valid(char **argv)
 {
+    argv++;
     if (is_arg_without_duplicates(argv)
         && is_arg_contains_only_integers(argv))
         return true;
