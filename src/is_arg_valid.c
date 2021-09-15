@@ -16,7 +16,7 @@ static bool is_arg_contains_only_integers(char **argv)
         }
         *argv = temp;
         number = ft_atoll(*argv);
-        if (number > MAX_INT_VALUE || number < MIN_INT_VALUE)
+        if (number > INT_MAX || number < INT_MIN)
             return false;
         argv++;
     }
