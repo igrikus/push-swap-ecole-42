@@ -8,8 +8,9 @@ SOURCE    = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_strl
 			ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c\
 			ft_atoll.c
 
-SOURCE_BONUS   =  ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c\
-				ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_lstsort.c
+SOURCE_BONUS   = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back.c\
+				ft_lstdelone.c ft_lstclear.c ft_lstiter.c ft_lstmap.c ft_lstsort.c\
+				ft_lst_is_empty.c
 
 OBJ = $(patsubst %.c,%.o,$(SOURCE))
 OBJ_BONUS = $(patsubst %.c,%.o,$(SOURCE_BONUS))

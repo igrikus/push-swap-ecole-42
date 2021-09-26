@@ -57,7 +57,6 @@ int main(int argc, char **argv)
 	}
 	temp = a_stack;
 
-	ft_lstsort(&a_stack, compare_stack_content);
 	int size = ft_lstsize(a_stack);
 	for (int i = 0; i < size; ++i)
 	{
