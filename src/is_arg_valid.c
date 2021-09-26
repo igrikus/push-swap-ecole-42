@@ -1,5 +1,17 @@
 #include "../includes/push_swap.h"
 
+static bool is_minus_with_number(const char* str)
+{
+    char current_symbol;
+    char next_symbol;
+
+    current_symbol = *str;
+    next_symbol = *(str + 1);
+    if (current_symbol == '-' && ft_isdigit(next_symbol))
+        return true;
+    return false;
+}
+
 static bool is_arg_contains_only_integers(char **argv)
 {
     char *temp;
@@ -10,9 +22,10 @@ static bool is_arg_contains_only_integers(char **argv)
         temp = *argv;
         while (**argv)
         {
-            if (ft_isdigit(**argv) != true)
+            if (ft_isdigit(**argv) || is_minus_with_number(*argv))
+                (*argv)++;
+            else
                 return false;
-            (*argv)++;
         }
         *argv = temp;
         number = ft_atoll(*argv);

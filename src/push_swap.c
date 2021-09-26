@@ -34,6 +34,16 @@ bool    fill_stack(t_list **a_stack, char **argv)
     return true;
 }
 
+int compare_stack_content(void *first, void *second)
+{
+    int *int_first;
+    int *int_second;
+
+    int_first = (int *)first;
+    int_second = (int *)second;
+    return *int_first - *int_second;
+}
+
 int main(int argc, char **argv)
 {
     t_list *a_stack;
@@ -47,6 +57,7 @@ int main(int argc, char **argv)
     }
     temp = a_stack;
 
+    ft_lstsort(&a_stack, compare_stack_content);
     int size = ft_lstsize(a_stack);
     for (int i = 0; i < size; ++i) {
         int number = *(int *)a_stack->content;
