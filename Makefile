@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_DIR = src/
-SRC_FILES = push_swap.c is_arg_valid.c movements.c
+SRC_FILES = push_swap.c is_arg_valid.c movements.c array_worker.c
 SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))
 
 OBJ_DIR = obj/
