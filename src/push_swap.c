@@ -34,14 +34,20 @@ bool fill_stack(t_list **a_stack, char **argv)
 	return true;
 }
 
-int compare_stack_content(void *first, void *second)
+bool is_already_sorted(t_list *stack)
 {
-	int *int_first;
-	int *int_second;
+	int current_number;
+	int next_number;
 
-	int_first = (int *) first;
-	int_second = (int *) second;
-	return *int_first - *int_second;
+	while (stack->next)
+	{
+		current_number = *(int *) stack->content;
+		next_number = *(int *) stack->next->content;
+		if (current_number > next_number)
+			return false;
+		stack = stack->next;
+	}
+	return true;
 }
 
 int main(int argc, char **argv)
