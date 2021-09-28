@@ -42,6 +42,20 @@ void sort_array(int *array, int len)
 	}
 }
 
+bool is_already_sorted(const int *array, int len)
+{
+	int i;
+
+	i = 0;
+	while (i < len - 1)
+	{
+		if (array[i] > array[i + 1])
+			return false;
+		i++;
+	}
+	return true;
+}
+
 int		find_mid_value(t_list *stack)
 {
 	int len;

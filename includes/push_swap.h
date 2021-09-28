@@ -5,12 +5,17 @@
 #include <stdbool.h>
 #include "../libft/libft.h"
 
-#define ERROR_MESSAGE "Error\n"
+#define ERROR_MESSAGE "Error"
 
 bool is_arg_valid(char **argv);
-void push(t_list **from, t_list **to);
-void swap(t_list **stack);
-void rotate(t_list **stack);
-void reverse_rotate(t_list **stack);
+void push_a(t_list *a_stack, t_list *b_stack);
+void push_b(t_list *a_stack, t_list *b_stack);
+void swap_a(t_list *a_stack);
+void swap_b(t_list *b_stack);
+void rotate_a(t_list *a_stack);
+void rotate_b(t_list *b_stack);
+void reverse_rotate_a(t_list *a_stack);
+void reverse_rotate_b(t_list *b_stack);
+void solve(t_list *a_stack, t_list *b_stack);
 
 #endif
