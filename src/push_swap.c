@@ -40,7 +40,9 @@ int main(int argc, char **argv)
 	t_list *b_stack;
 
 	argv++;
-	if (argc == 1 || !is_arg_valid(argv) || !fill_stack(&a_stack, argv))
+	if (argc == 2)
+		argv = ft_split(*argv, ' ');
+	if (argv == NULL || !is_arg_valid(argv) || !fill_stack(&a_stack, argv))
 	{
 		ft_putendl_fd(ERROR_MESSAGE, STDOUT_FILENO);
 		return 1;
