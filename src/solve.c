@@ -1,26 +1,26 @@
 #include "../includes/push_swap.h"
 
-static void solve_two(t_list *a_stack)
+static void solve_two(t_list **a_stack)
 {
 	int first;
 	int second;
 
-	first = *(int *) a_stack->content;
-	second = *(int *) a_stack->next->content;
+	first = *(int *) (*a_stack)->content;
+	second = *(int *) (*a_stack)->next->content;
 
 	if (first > second)
 		swap_a(a_stack);
 }
 
-static void solve_three(t_list *a_stack)
+static void solve_three(t_list **a_stack)
 {
 	int first;
 	int second;
 	int third;
 
-	first = *(int *) a_stack->content;
-	second = *(int *) a_stack->next->content;
-	third = *(int *) a_stack->next->next->content;
+	first = *(int *) (*a_stack)->content;
+	second = *(int *) (*a_stack)->next->content;
+	third = *(int *) (*a_stack)->next->next->content;
 
 	if (first < second && second < third)
 		return;
@@ -41,17 +41,17 @@ static void solve_three(t_list *a_stack)
 	}
 }
 
-static void serious_solve(t_list *a_stack, t_list *b_stack)
+static void serious_solve(t_list **a_stack, t_list **b_stack)
 {
 	(void) a_stack;
 	(void) b_stack;
 }
 
-void solve(t_list *a_stack, t_list *b_stack)
+void solve(t_list **a_stack, t_list **b_stack)
 {
 	int a_stack_size;
 
-	a_stack_size = ft_lstsize(a_stack);
+	a_stack_size = ft_lstsize(*a_stack);
 	if (a_stack_size == 1)
 		return;
 	else if (a_stack_size == 2)

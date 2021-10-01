@@ -2,54 +2,77 @@
 
 void push(t_list **from, t_list **to)
 {
-	if (ft_lst_is_empty(*from))
+	t_list *temp;
+	t_list *temp_from;
+	t_list *temp_to;
+
+	temp_from = *from;
+	if (!temp_from)
 		return;
-	ft_lstadd_front(to, *from);
-	(*from) = (*from)->next;
+	temp_to = *to;
+	temp = temp_from;
+	temp_from = temp_from->next;
+	*from = temp_from;
+	if (!temp_to)
+	{
+		temp_to = temp;
+		temp_to->next = NULL;
+		*to = temp_to;
+	} else
+	{
+		temp->next = temp_to;
+		*to = temp;
+	}
 }
 
 void swap(t_list **stack)
 {
-	t_list	*first;
-	t_list	*second;
+	t_list *first;
+	t_list *second;
+	int *temp_number;
 
-	if (!*stack || !(*stack)->next)
-		return ;
+	if (!(*stack) || !(*stack)->next)
+		return;
 	first = *stack;
-	second = first->next;
-	first->next = second->next;
-	*stack = second;
-	(*stack)->next = first;
+	second = (*stack)->next;
+	temp_number = (int *) first->content;
+	first->content = second->content;
+	second->content = temp_number;
 }
 
 void rotate(t_list **stack)
 {
-	t_list	*first;
-	t_list	*last;
+	t_list *first;
+	t_list *last;
+	t_list *temp_stack;
 
-	if (!*stack || !(*stack)->next)
-		return ;
-	first = *stack;
-	last = ft_lstlast(*stack);
+	temp_stack = *stack;
+	if (!temp_stack || !temp_stack->next)
+		return;
+	first = temp_stack;
+	temp_stack = temp_stack->next;
+	last = ft_lstlast(temp_stack);
 	last->next = first;
-	*stack = (*stack)->next;
 	first->next = NULL;
+	*stack = temp_stack;
 }
 
 void reverse_rotate(t_list **stack)
 {
-	t_list	*last;
-	t_list	*previous;
+	t_list *last;
+	t_list *previous;
+	t_list *temp_stack;
 
-	if (!*stack || !(*stack)->next)
-		return ;
-	last = *stack;
+	temp_stack = *stack;
+	if (!temp_stack || !temp_stack->next)
+		return;
+	last = temp_stack;
 	while (last->next)
 	{
 		previous = last;
 		last = last->next;
 	}
-	last->next = *stack;
+	last->next = temp_stack;
 	previous->next = NULL;
 	*stack = last;
 }

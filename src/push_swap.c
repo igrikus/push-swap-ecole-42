@@ -1,6 +1,23 @@
 #include "../includes/push_swap.h"
 
-bool add_element_to_stack(char *str, t_list **a_stack)
+static void free_resources(t_list **a_stack, int argc, char **strings)
+{
+	char **temp;
+
+	if (argc == 2)
+	{
+		temp = strings;
+		while (*strings)
+		{
+			free(*strings);
+			strings++;
+		}
+		free(temp);
+	}
+	ft_lstclear(a_stack, free);
+}
+
+static bool add_element_to_stack(char *str, t_list **a_stack)
 {
 	int *number;
 	t_list *element;
@@ -19,9 +36,8 @@ bool add_element_to_stack(char *str, t_list **a_stack)
 	return true;
 }
 
-bool fill_stack(t_list **a_stack, char **argv)
+static bool fill_stack(t_list **a_stack, char **argv)
 {
-	*a_stack = 0;
 	while (*argv)
 	{
 		if (add_element_to_stack(*argv, a_stack) == false)
@@ -40,6 +56,8 @@ int main(int argc, char **argv)
 	t_list *b_stack;
 
 	argv++;
+	a_stack = NULL;
+	b_stack = NULL;
 	if (argc == 2)
 		argv = ft_split(*argv, ' ');
 	if (argv == NULL || !is_arg_valid(argv) || !fill_stack(&a_stack, argv))
@@ -47,6 +65,6 @@ int main(int argc, char **argv)
 		ft_putendl_fd(ERROR_MESSAGE, STDOUT_FILENO);
 		return 1;
 	}
-	b_stack = NULL;
-	solve(a_stack, b_stack);
+	solve(&a_stack, &b_stack);
+	free_resources(&a_stack, argc, argv);
 }
