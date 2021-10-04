@@ -53,4 +53,4 @@ dkms.conf
 
 .idea
 push_swap
-checker_*
+checker*

@@ -50,6 +50,17 @@ static bool fill_stack(t_list **a_stack, char **argv)
 	return true;
 }
 
+void print_stack(t_list *stack)
+{
+	while (stack)
+	{
+		int number = *(int *)stack->content;
+		printf("%d ", number);
+		stack = stack->next;
+	}
+	printf("\n");
+}
+
 int main(int argc, char **argv)
 {
 	t_list *a_stack;
@@ -66,5 +77,6 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	solve(&a_stack, &b_stack);
+//	print_stack(a_stack);
 	free_resources(&a_stack, argc, argv);
 }
