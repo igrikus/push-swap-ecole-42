@@ -56,16 +56,14 @@ bool is_already_sorted(const int *array, int len)
 	return true;
 }
 
-int		find_mid_value(t_list *stack)
+int		find_mid_value(t_list *stack, int len)
 {
-	int len;
 	int *array;
 	int	mid_value;
 
-	len = ft_lstsize(stack);
 	array = create_array_from_list(stack, len);
 	sort_array(array, len);
-	mid_value = array[len / 2];
+	mid_value = array[(len / 2) + 1];
 	free(array);
 	return (mid_value);
 }

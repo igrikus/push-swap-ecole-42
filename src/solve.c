@@ -16,6 +16,18 @@ bool is_stack_already_sorted(t_list *stack)
 	return true;
 }
 
+void fill_chunk(t_list **a_stack, int chunk)
+{
+	t_list *iterator;
+
+	iterator = (*a_stack);
+	while (iterator)
+	{
+		iterator->chunk = chunk;
+		iterator = iterator->next;
+	}
+}
+
 static void solve_two(t_list **a_stack)
 {
 	int first;
@@ -59,24 +71,17 @@ static void solve_three(t_list **a_stack)
 
 static void serious_solve(t_list **a_stack, t_list **b_stack, int stack_size)
 {
-	int counter;
-	int current_size;
+	int chunk;
 
-	counter = 0;
-	current_size = stack_size;
-	while (counter < stack_size)
+	chunk = 0;
+	while (stack_size > 2)
 	{
-		rotate_min_to_top(a_stack, current_size);
-		push_b(a_stack, b_stack);
-		current_size = ft_lstsize(*a_stack);
-		counter++;
+		fill_chunk(a_stack, chunk);
+		push_chunk(a_stack, b_stack, stack_size);
+		stack_size = ft_lstsize(*a_stack);
+		chunk++;
 	}
-	counter = 0;
-	while (counter < stack_size)
-	{
-		push_a(a_stack, b_stack);
-		counter++;
-	}
+	solve_two(a_stack);
 }
 
 void solve(t_list **a_stack, t_list **b_stack)
