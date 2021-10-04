@@ -60,17 +60,13 @@ static void solve_three(t_list **a_stack)
 static void serious_solve(t_list **a_stack, t_list **b_stack, int stack_size)
 {
 	int counter;
-	int half_size;
 	int current_size;
-	int min_num_pos;
 
 	counter = 0;
 	current_size = stack_size;
 	while (counter < stack_size)
 	{
-		half_size = current_size / 2;
-		min_num_pos = find_min_number_position(*a_stack);
-		rotate_min_to_top(a_stack, min_num_pos, current_size, half_size);
+		rotate_min_to_top(a_stack, current_size);
 		push_b(a_stack, b_stack);
 		current_size = ft_lstsize(*a_stack);
 		counter++;

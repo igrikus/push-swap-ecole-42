@@ -9,6 +9,7 @@ int find_min_number_position(t_list *stack)
 
 	min_number = *(int *)stack->content;
 	counter = 0;
+	position = counter;
 	while (stack)
 	{
 		current_number = *(int *)stack->content;
@@ -22,21 +23,25 @@ int find_min_number_position(t_list *stack)
 	return position;
 }
 
-void rotate_min_to_top(t_list **stack, int pos, int stack_size, int half_size)
+void rotate_min_to_top(t_list **stack, int stack_size)
 {
 	int counter;
+	int half_size;
 	int difference;
+	int min_num_pos;
 
+	half_size = stack_size / 2;
+	min_num_pos = find_min_number_position(*stack);
 	counter = 0;
-	if (pos <= half_size)
-		while (counter < pos)
+	if (min_num_pos <= half_size)
+		while (counter < min_num_pos)
 		{
 			rotate_a(stack);
 			counter++;
 		}
 	else
 	{
-		difference = stack_size - pos;
+		difference = stack_size - min_num_pos;
 		while (counter < difference)
 		{
 			reverse_rotate_a(stack);
