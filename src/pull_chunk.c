@@ -74,12 +74,13 @@ void pull_chunk(t_list **a_stack, t_list **b_stack, int chunk, int chunk_size)
 	}
 	ra_count = 0;
 	mid_number = find_mid_value(*b_stack, chunk_size);
-	if (chunk_size == 3)
+	if (chunk_size % 2 == 1)
 		bigger_numbers_left = chunk_size / 2;
 	else
 		bigger_numbers_left = (chunk_size / 2) - 1;
 	while (bigger_numbers_left)
 	{
+		print_chunk(*b_stack, chunk);
 		pull_uppers(a_stack, b_stack, mid_number, &bigger_numbers_left);
 		rotate_b(b_stack);
 		ra_count++;
@@ -90,8 +91,6 @@ void pull_chunk(t_list **a_stack, t_list **b_stack, int chunk, int chunk_size)
 		ra_count--;
 	}
 	chunk_size = get_chunk_len(*b_stack, chunk);
-	print_stack(*a_stack);
-	print_stack(*b_stack);
 	pull_chunk(a_stack, b_stack, chunk, chunk_size);
 }
 
@@ -111,7 +110,7 @@ void pull_last_chunk(t_list **a_stack, t_list **b_stack, int chunk, int chunk_si
 		return;
 	}
 	mid_number = find_mid_value(*b_stack, chunk_size);
-	if (chunk_size == 3)
+	if (chunk_size % 2 == 1)
 		bigger_numbers_left = chunk_size / 2;
 	else
 		bigger_numbers_left = (chunk_size / 2) - 1;

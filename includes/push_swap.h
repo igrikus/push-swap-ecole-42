@@ -24,5 +24,6 @@ void pull_chunk(t_list **a_stack, t_list **b_stack, int chunk, int chunk_size);
 void pull_last_chunk(t_list **a_stack, t_list **b_stack, int chunk, int chunk_size);
 void pull_two_from_chunk(t_list **a_stack, t_list **b_stack);
 void print_stack(t_list *stack);
+void print_chunk(t_list *stack, int chunk);
 
 #endif

@@ -61,6 +61,18 @@ void print_stack(t_list *stack)
 	printf("\n");
 }
 
+void print_chunk(t_list *stack, int chunk)
+{
+	printf("chunk is: ");
+	while (stack && stack->chunk == chunk)
+	{
+		int number = *(int *)stack->content;
+		printf("%d ", number);
+		stack = stack->next;
+	}
+	printf("\n");
+}
+
 int main(int argc, char **argv)
 {
 	t_list *a_stack;
