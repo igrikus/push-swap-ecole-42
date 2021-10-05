@@ -16,6 +16,22 @@ bool is_stack_already_sorted(t_list *stack)
 	return true;
 }
 
+bool is_chunk_already_sorted(t_list *stack, int chunk)
+{
+	int current_number;
+	int next_number;
+
+	while (stack->next && stack->chunk == chunk && stack->next->chunk == chunk)
+	{
+		current_number = *(int *) stack->content;
+		next_number = *(int *) stack->next->content;
+		if (current_number < next_number)
+			return false;
+		stack = stack->next;
+	}
+	return true;
+}
+
 void insert_chunk_number(t_list **a_stack, int chunk)
 {
 	t_list *iterator;
@@ -77,12 +93,15 @@ static void serious_solve(t_list **a_stack, t_list **b_stack, int stack_size)
 	chunk = 0;
 	while (stack_size > 2)
 	{
+		if (is_stack_already_sorted(*a_stack))
+			break;
 		chunk++;
 		insert_chunk_number(a_stack, chunk);
 		push_chunk(a_stack, b_stack, stack_size);
 		stack_size = ft_lstsize(*a_stack);
 	}
-	solve_two(a_stack);
+	if (stack_size == 2)
+		solve_two(a_stack);
 	while (chunk >= 1)
 	{
 		chunk_size = get_chunk_len(*b_stack, chunk);
@@ -106,5 +125,10 @@ void solve(t_list **a_stack, t_list **b_stack)
 	else if (a_stack_size == 3)
 		solve_three(a_stack);
 	else
-		serious_solve(a_stack, b_stack, a_stack_size);
+		do
+		{
+			serious_solve(a_stack, b_stack, a_stack_size);
+			printf("half-result is: ");
+			print_stack(*a_stack);
+		} while (!is_stack_already_sorted(*a_stack));
 }
