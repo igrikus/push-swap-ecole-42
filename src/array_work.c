@@ -28,7 +28,7 @@ void sort_array(int *array, int len)
 	while (i < len)
 	{
 		j = 0;
-		while (j < len)
+		while (j < len - 1)
 		{
 			if (array[j] > array[j + 1])
 			{
@@ -63,7 +63,7 @@ int		find_mid_value(t_list *stack, int len)
 
 	array = create_array_from_list(stack, len);
 	sort_array(array, len);
-	mid_value = array[(len / 2) + 1];
+	mid_value = array[len / 2];
 	free(array);
 	return (mid_value);
 }

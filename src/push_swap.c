@@ -77,6 +77,5 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	solve(&a_stack, &b_stack);
-//	print_stack(a_stack);
 	free_resources(&a_stack, argc, argv);
 }
