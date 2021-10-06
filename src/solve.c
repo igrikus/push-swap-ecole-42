@@ -146,7 +146,7 @@ static void serious_solve(t_list **a_stack, t_list **b_stack, int stack_size)
 	solve_two(a_stack);
 	while (chunk >= 1)
 	{
-		chunk_size = get_chunk_len(*b_stack, chunk);
+		chunk_size = get_chunk_size(*b_stack, chunk);
 		if (chunk != 1)
 			pull_chunk(a_stack, b_stack, chunk, chunk_size);
 		else
