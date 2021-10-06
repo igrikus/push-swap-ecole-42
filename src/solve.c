@@ -1,5 +1,34 @@
 #include "../includes/push_swap.h"
 
+int get_count_of_created_chunks(int chunk_size, int chunk_number)
+{
+	int chunk_count;
+
+	chunk_count = 0;
+	if (chunk_number == 0)
+		while (chunk_size >= 2)
+		{
+			chunk_count++;
+			chunk_size /= 2;
+		}
+	else
+		while (chunk_size > 0)
+		{
+			chunk_count++;
+			chunk_size /= 2;
+		}
+	return chunk_count;
+}
+
+void pull_whole_chunk_to_a(t_list **a_stack, t_list **b_stack, int chunk)
+{
+	while (*b_stack && (*b_stack)->chunk == chunk)
+	{
+		push_a(a_stack, b_stack);
+		*b_stack = (*b_stack)->next;
+	}
+}
+
 bool is_stack_already_sorted(t_list *stack)
 {
 	int current_number;
@@ -10,6 +39,38 @@ bool is_stack_already_sorted(t_list *stack)
 		current_number = *(int *) stack->content;
 		next_number = *(int *) stack->next->content;
 		if (current_number > next_number)
+			return false;
+		stack = stack->next;
+	}
+	return true;
+}
+
+bool is_chunk_already_sorted_asc(t_list *stack, int chunk)
+{
+	int current_number;
+	int next_number;
+
+	while (stack->next && stack->chunk == chunk && stack->next->chunk == chunk)
+	{
+		current_number = *(int *) stack->content;
+		next_number = *(int *) stack->next->content;
+		if (current_number > next_number)
+			return false;
+		stack = stack->next;
+	}
+	return true;
+}
+
+bool is_chunk_already_sorted_desc(t_list *stack, int chunk)
+{
+	int current_number;
+	int next_number;
+
+	while (stack->next && stack->chunk == chunk && stack->next->chunk == chunk)
+	{
+		current_number = *(int *) stack->content;
+		next_number = *(int *) stack->next->content;
+		if (current_number < next_number)
 			return false;
 		stack = stack->next;
 	}

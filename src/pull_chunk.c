@@ -1,6 +1,6 @@
 #include "../includes/push_swap.h"
 
-int get_chunk_len(t_list *stack, int chunk)
+int get_chunk_size(t_list *stack, int chunk)
 {
 	int len;
 
@@ -90,7 +90,7 @@ void pull_chunk(t_list **a_stack, t_list **b_stack, int chunk, int chunk_size)
 		reverse_rotate_b(b_stack);
 		ra_count--;
 	}
-	chunk_size = get_chunk_len(*b_stack, chunk);
+	chunk_size = get_chunk_size(*b_stack, chunk);
 	pull_chunk(a_stack, b_stack, chunk, chunk_size);
 }
 
@@ -125,7 +125,7 @@ void pull_last_chunk(t_list **a_stack, t_list **b_stack, int chunk, int chunk_si
 		}
 		rotate_b(b_stack);
 	}
-	chunk_size = get_chunk_len(*b_stack, chunk);
+	chunk_size = get_chunk_size(*b_stack, chunk);
 	print_stack(*a_stack);
 	print_stack(*b_stack);
 	pull_last_chunk(a_stack, b_stack, chunk, chunk_size);
