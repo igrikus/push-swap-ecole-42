@@ -3,20 +3,12 @@
 void push_a(t_list **a_stack, t_list **b_stack)
 {
 	push(b_stack, a_stack);
-	printf("stack b: ");
-	print_stack(*b_stack);
-	printf("stack a: ");
-	print_stack(*a_stack);
 	ft_putendl_fd(PUSH_A, STDOUT_FILENO);
 }
 
 void push_b(t_list **a_stack, t_list **b_stack)
 {
 	push(a_stack, b_stack);
-	printf("stack a: ");
-	print_stack(*a_stack);
-	printf("stack b: ");
-	print_stack(*b_stack);
 	ft_putendl_fd(PUSH_B, STDOUT_FILENO);
 }
 

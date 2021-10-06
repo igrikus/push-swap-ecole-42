@@ -47,7 +47,8 @@ void push_chunk(t_list **a_stack, t_list **b_stack, int stack_size)
 			push_lowers(a_stack, b_stack, mid_number, &lesser_numbers_left);
 			need_to_push_lowers = false;
 		}
-		if (lesser_numbers_left)
-			rotate_a(a_stack);
+		rotate_a(a_stack);
 	}
+	print_stack(*a_stack);
+	print_stack(*b_stack);
 }

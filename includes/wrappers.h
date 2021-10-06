@@ -16,5 +16,4 @@ void push(t_list **from, t_list **to);
 void swap(t_list **stack);
 void rotate(t_list **stack);
 void reverse_rotate(t_list **stack);
-void print_stack(t_list *stack);
 #endif
