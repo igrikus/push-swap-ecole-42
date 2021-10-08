@@ -19,45 +19,59 @@ static void pull_two(t_list **a_stack, t_list **b_stack)
 	push_b(a_stack, b_stack);
 }
 
-static void pull_uppers(t_list **a_stack, t_list **b_stack, int mid_number,
-						int *lesser_numbers_left)
+static int pull_uppers(t_list **a_stack, t_list **b_stack, int mid_number, int *lesser_numbers_left)
 {
+	int pulled_count;
 	int current_number;
 
+	pulled_count = 0;
 	current_number = *(int *) (*a_stack)->content;
 	while (current_number < mid_number)
 	{
 		push_b(a_stack, b_stack);
+		pulled_count++;
 		(*lesser_numbers_left)--;
 		current_number = *(int *) (*a_stack)->content;
 	}
+	return pulled_count;
 }
 
-static void pull_lowers(t_list **a_stack, t_list **b_stack, int mid_number,
-						int *lesser_numbers_left)
+static int pull_lowers(t_list **a_stack, t_list **b_stack, int mid_number, int *lesser_numbers_left)
 {
+	int pulled_count;
 	int current_number;
 
+	pulled_count = 0;
 	current_number = *(int *) ft_lstlast(*a_stack)->content;
 	while (current_number < mid_number)
 	{
 		reverse_rotate_a(a_stack);
 		push_b(a_stack, b_stack);
+		pulled_count++;
 		(*lesser_numbers_left)--;
 		current_number = *(int *) ft_lstlast(*a_stack)->content;
 	}
+	return pulled_count;
 }
 
-void pull_chunk_asc(t_list **a_stack, t_list **b_stack, int chunk, int chunk_size)
+static int pull_chunk(t_list **a_stack, t_list **b_stack, int chunk_size)
 {
 	int mid_number;
+	int pulled_len;
 	int lesser_numbers_left;
 	int ra_count;
 
+	pulled_len = 0;
 	if (chunk_size == 1)
+	{
 		push_b(a_stack, b_stack);
+		pulled_len = 1;
+	}
 	else if (chunk_size == 2)
+	{
 		pull_two(a_stack, b_stack);
+		pulled_len = 2;
+	}
 	else
 	{
 		ra_count = 0;
@@ -65,7 +79,7 @@ void pull_chunk_asc(t_list **a_stack, t_list **b_stack, int chunk, int chunk_siz
 		lesser_numbers_left = chunk_size / 2;
 		while (lesser_numbers_left)
 		{
-			pull_uppers(a_stack, b_stack, mid_number, &lesser_numbers_left);
+			pulled_len += pull_uppers(a_stack, b_stack, mid_number, &lesser_numbers_left);
 			if (lesser_numbers_left)
 			{
 				rotate_a(a_stack);
@@ -74,38 +88,52 @@ void pull_chunk_asc(t_list **a_stack, t_list **b_stack, int chunk, int chunk_siz
 		}
 		while (ra_count-- > 0)
 			reverse_rotate_a(a_stack);
-		chunk_size = get_chunk_size(*a_stack, chunk);
-		pull_chunk_asc(a_stack, b_stack, chunk, chunk_size);
 	}
+	return pulled_len;
 }
 
-void pull_last_chunk_asc(t_list **a_stack, t_list **b_stack, int chunk, int chunk_size)
+static int pull_last_chunk(t_list **a_stack, t_list **b_stack, int chunk_size)
 {
 	int mid_number;
+	int pulled_len;
 	int lesser_numbers_left;
 	bool need_to_pull_lowers;
 
-	if (chunk_size == 1 || is_chunk_already_sorted_asc(*a_stack, chunk))
-		return;
-	else if (chunk_size == 2)
-		swap_two(a_stack);
-	else
+	pulled_len = 0;
+	mid_number = find_mid_value(*a_stack, chunk_size);
+	lesser_numbers_left = chunk_size / 2;
+	need_to_pull_lowers = true;
+	while (lesser_numbers_left)
 	{
-		mid_number = find_mid_value(*a_stack, chunk_size);
-		lesser_numbers_left = chunk_size / 2;
-		need_to_pull_lowers = true;
-		while (lesser_numbers_left)
+		pulled_len += pull_uppers(a_stack, b_stack, mid_number, &lesser_numbers_left);
+		if (need_to_pull_lowers)
 		{
-			pull_uppers(a_stack, b_stack, mid_number, &lesser_numbers_left);
-			if (need_to_pull_lowers)
-			{
-				pull_lowers(a_stack, b_stack, mid_number, &lesser_numbers_left);
-				need_to_pull_lowers = false;
-			}
-			if (lesser_numbers_left)
-				rotate_a(a_stack);
+			pulled_len += pull_lowers(a_stack, b_stack, mid_number, &lesser_numbers_left);
+			need_to_pull_lowers = false;
 		}
-		chunk_size = get_chunk_size(*a_stack, chunk);
-		pull_last_chunk_asc(a_stack, b_stack, chunk, chunk_size);
+		if (lesser_numbers_left)
+			rotate_a(a_stack);
 	}
+	return pulled_len;
+}
+
+void pull_chunk_to_b(t_list **a_stack, t_list **b_stack, int *chunk, int pulled_chunk)
+{
+	int pulled_len;
+	int chunk_size;
+
+	chunk_size = get_chunk_size(*a_stack, *chunk);
+	if (*chunk == 0 && chunk_size == 2)
+	{
+		swap_two(a_stack);
+		(*chunk)--;
+		return;
+	}
+	if (*chunk != 0)
+		pulled_len = pull_chunk(a_stack, b_stack, chunk_size);
+	else
+		pulled_len = pull_last_chunk(a_stack, b_stack, chunk_size);
+	if (chunk_size <= 2)
+		(*chunk)--;
+	insert_chunk_number_len(b_stack, pulled_chunk, pulled_len);
 }

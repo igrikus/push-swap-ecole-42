@@ -1,5 +1,18 @@
 #include "../includes/push_swap.h"
 
+int get_chunk_size(t_list *stack, int chunk)
+{
+    int len;
+
+    len = 0;
+    while (stack && stack->chunk == chunk)
+    {
+        len++;
+        stack = stack->next;
+    }
+    return len;
+}
+
 int get_count_of_created_chunks(int chunk_size, int chunk_number)
 {
 	int chunk_count;
@@ -77,16 +90,29 @@ bool is_chunk_already_sorted_desc(t_list *stack, int chunk)
 	return true;
 }
 
-void insert_chunk_number(t_list **a_stack, int chunk)
+void insert_chunk_number(t_list **stack, int chunk)
 {
 	t_list *iterator;
 
-	iterator = (*a_stack);
+	iterator = (*stack);
 	while (iterator)
 	{
 		iterator->chunk = chunk;
 		iterator = iterator->next;
 	}
+}
+
+void insert_chunk_number_len(t_list **stack, int chunk, int len)
+{
+    t_list *iterator;
+
+    iterator = (*stack);
+    while (iterator && len)
+    {
+        iterator->chunk = chunk;
+        iterator = iterator->next;
+        len--;
+    }
 }
 
 static void solve_two(t_list **a_stack)
@@ -130,29 +156,35 @@ static void solve_three(t_list **a_stack)
 	}
 }
 
-static void serious_solve(t_list **a_stack, t_list **b_stack, int stack_size)
+static void serious_solve(t_list **a_stack, t_list **b_stack)
 {
-	int chunk;
-	int chunk_size;
+    int current_chunk;
+    int total_chunk_number;
 
-	chunk = 0;
-	while (stack_size > 2)
-	{
-		chunk++;
-		insert_chunk_number(a_stack, chunk);
-		push_chunk(a_stack, b_stack, stack_size);
-		stack_size = ft_lstsize(*a_stack);
-	}
-	solve_two(a_stack);
-	while (chunk >= 1)
-	{
-		chunk_size = get_chunk_size(*b_stack, chunk);
-		if (chunk != 1)
-			pull_chunk(a_stack, b_stack, chunk, chunk_size);
+    current_chunk = 0;
+	total_chunk_number = 0;
+    insert_chunk_number(a_stack, total_chunk_number);
+    while (!is_stack_already_sorted(*a_stack))
+    {
+		if (total_chunk_number == 0)
+			current_chunk = total_chunk_number;
 		else
-			pull_last_chunk(a_stack, b_stack, chunk, chunk_size);
-		chunk--;
-	}
+			current_chunk = (total_chunk_number - 1);
+        while (current_chunk >= 0)
+        {
+			print_chunk(*a_stack, current_chunk); // TODO
+            pull_chunk_to_b(a_stack, b_stack, &current_chunk, total_chunk_number);
+            total_chunk_number++;
+        }
+		total_chunk_number--;
+        current_chunk = (total_chunk_number - 1);
+        while (current_chunk >= 0)
+        {
+			print_chunk(*b_stack, current_chunk); // TODO
+            pull_chunk_to_a(a_stack, b_stack, &current_chunk, total_chunk_number);
+            total_chunk_number++;
+        }
+    }
 }
 
 void solve(t_list **a_stack, t_list **b_stack)
@@ -167,5 +199,5 @@ void solve(t_list **a_stack, t_list **b_stack)
 	else if (a_stack_size == 3)
 		solve_three(a_stack);
 	else
-		serious_solve(a_stack, b_stack, a_stack_size);
+		serious_solve(a_stack, b_stack);
 }
