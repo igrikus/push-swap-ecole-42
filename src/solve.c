@@ -13,24 +13,27 @@ int get_chunk_size(t_list *stack, int chunk)
     return len;
 }
 
-int get_count_of_created_chunks(int chunk_size, int chunk_number)
+int get_count_of_created_chunks(t_list *stack, int total_number)
 {
-	int chunk_count;
+	int count;
+	int chunk_size;
 
-	chunk_count = 0;
-	if (chunk_number == 0)
-		while (chunk_size >= 2)
+	count = 0;
+	while (total_number >= 0)
+	{
+		chunk_size = get_chunk_size(stack, total_number);
+		if (chunk_size != 0)
 		{
-			chunk_count++;
-			chunk_size /= 2;
+			count++;
+			while (chunk_size > 0)
+			{
+				stack = stack->next;
+				chunk_size--;
+			}
 		}
-	else
-		while (chunk_size > 0)
-		{
-			chunk_count++;
-			chunk_size /= 2;
-		}
-	return chunk_count;
+		total_number--;
+	}
+	return (count - 1);
 }
 
 void pull_whole_chunk_to_a(t_list **a_stack, t_list **b_stack, int chunk)
@@ -158,32 +161,36 @@ static void solve_three(t_list **a_stack)
 
 static void serious_solve(t_list **a_stack, t_list **b_stack)
 {
-    int current_chunk;
+    int stack_size;
+	int current_chunk;
     int total_chunk_number;
 
     current_chunk = 0;
 	total_chunk_number = 0;
-    insert_chunk_number(a_stack, total_chunk_number);
+    insert_chunk_number(a_stack, current_chunk);
     while (!is_stack_already_sorted(*a_stack))
     {
-		if (total_chunk_number == 0)
-			current_chunk = total_chunk_number;
-		else
-			current_chunk = (total_chunk_number - 1);
-        while (current_chunk >= 0)
+		stack_size = ft_lstsize(*a_stack);
+		while (stack_size > 2)
         {
-			print_chunk(*a_stack, current_chunk); // TODO
+//			print_chunk(*a_stack, current_chunk); // TODO
             pull_chunk_to_b(a_stack, b_stack, &current_chunk, total_chunk_number);
-            total_chunk_number++;
+			stack_size = ft_lstsize(*a_stack);
+			if (stack_size > 2)
+				total_chunk_number++;
         }
-		total_chunk_number--;
-        current_chunk = (total_chunk_number - 1);
-        while (current_chunk >= 0)
+		swap_a(a_stack);
+        current_chunk = total_chunk_number;
+		stack_size = ft_lstsize(*b_stack);
+        while (stack_size > 0)
         {
-			print_chunk(*b_stack, current_chunk); // TODO
+//			print_chunk(*b_stack, current_chunk); // TODO
             pull_chunk_to_a(a_stack, b_stack, &current_chunk, total_chunk_number);
-            total_chunk_number++;
+			stack_size = ft_lstsize(*b_stack);
+			if (stack_size > 0)
+				total_chunk_number++;
         }
+		current_chunk = total_chunk_number;
     }
 }
 
