@@ -13,29 +13,6 @@ int get_chunk_size(t_list *stack, int chunk)
     return len;
 }
 
-int get_count_of_created_chunks(t_list *stack, int total_number)
-{
-	int count;
-	int chunk_size;
-
-	count = 0;
-	while (total_number >= 0)
-	{
-		chunk_size = get_chunk_size(stack, total_number);
-		if (chunk_size != 0)
-		{
-			count++;
-			while (chunk_size > 0)
-			{
-				stack = stack->next;
-				chunk_size--;
-			}
-		}
-		total_number--;
-	}
-	return (count - 1);
-}
-
 void pull_whole_chunk_to_a(t_list **a_stack, t_list **b_stack, int chunk)
 {
 	while (*b_stack && (*b_stack)->chunk == chunk)
@@ -179,7 +156,7 @@ static void serious_solve(t_list **a_stack, t_list **b_stack)
 			if (stack_size > 2)
 				total_chunk_number++;
         }
-		swap_a(a_stack);
+		solve_two(a_stack);
         current_chunk = total_chunk_number;
 		stack_size = ft_lstsize(*b_stack);
         while (stack_size > 0)
