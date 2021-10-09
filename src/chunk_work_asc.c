@@ -7,36 +7,36 @@ static void pull_two(t_list **a_stack, t_list **b_stack)
 	push_b(a_stack, b_stack);
 }
 
-static int pull_uppers(t_list **a_stack, t_list **b_stack, int mid_number, int *lesser_numbers_left)
+static int pull_uppers(t_list **a_stack, t_list **b_stack, int mid_num, int *lesser_left)
 {
 	int pulled_count;
 	int current_number;
 
 	pulled_count = 0;
 	current_number = *(int *) (*a_stack)->content;
-	while (current_number < mid_number)
+	while (current_number < mid_num)
 	{
 		push_b(a_stack, b_stack);
 		pulled_count++;
-		(*lesser_numbers_left)--;
+		(*lesser_left)--;
 		current_number = *(int *) (*a_stack)->content;
 	}
 	return pulled_count;
 }
 
-static int pull_lowers(t_list **a_stack, t_list **b_stack, int mid_number, int *lesser_numbers_left)
+static int pull_lowers(t_list **a_stack, t_list **b_stack, int mid_num, int *lesser_left)
 {
 	int pulled_count;
 	int current_number;
 
 	pulled_count = 0;
 	current_number = *(int *) ft_lstlast(*a_stack)->content;
-	while (current_number < mid_number)
+	while (current_number < mid_num)
 	{
 		reverse_rotate_a(a_stack);
 		push_b(a_stack, b_stack);
 		pulled_count++;
-		(*lesser_numbers_left)--;
+		(*lesser_left)--;
 		current_number = *(int *) ft_lstlast(*a_stack)->content;
 	}
 	return pulled_count;
@@ -44,19 +44,19 @@ static int pull_lowers(t_list **a_stack, t_list **b_stack, int mid_number, int *
 
 static int pull_chunk(t_list **a_stack, t_list **b_stack, int chunk_size)
 {
-	int mid_number;
+	int mid_num;
 	int pulled_len;
-	int lesser_numbers_left;
+	int lesser_left;
 	int ra_count;
 
 	pulled_len = 0;
 	ra_count = 0;
-	mid_number = find_mid_value(*a_stack, chunk_size);
-	lesser_numbers_left = chunk_size / 2;
-	while (lesser_numbers_left)
+	mid_num = find_mid_value(*a_stack, chunk_size);
+	lesser_left = chunk_size / 2;
+	while (lesser_left)
 	{
-		pulled_len += pull_uppers(a_stack, b_stack, mid_number, &lesser_numbers_left);
-		if (lesser_numbers_left)
+		pulled_len += pull_uppers(a_stack, b_stack, mid_num, &lesser_left);
+		if (lesser_left)
 		{
 			rotate_a(a_stack);
 			ra_count++;
@@ -69,24 +69,24 @@ static int pull_chunk(t_list **a_stack, t_list **b_stack, int chunk_size)
 
 static int pull_last_chunk(t_list **a_stack, t_list **b_stack, int chunk_size)
 {
-	int mid_number;
+	int mid_num;
 	int pulled_len;
-	int lesser_numbers_left;
+	int lesser_left;
 	bool need_to_pull_lowers;
 
 	pulled_len = 0;
-	mid_number = find_mid_value(*a_stack, chunk_size);
-	lesser_numbers_left = chunk_size / 2;
+	mid_num = find_mid_value(*a_stack, chunk_size);
+	lesser_left = chunk_size / 2;
 	need_to_pull_lowers = true;
-	while (lesser_numbers_left)
+	while (lesser_left)
 	{
-		pulled_len += pull_uppers(a_stack, b_stack, mid_number, &lesser_numbers_left);
+		pulled_len += pull_uppers(a_stack, b_stack, mid_num, &lesser_left);
 		if (need_to_pull_lowers)
 		{
-			pulled_len += pull_lowers(a_stack, b_stack, mid_number, &lesser_numbers_left);
+			pulled_len += pull_lowers(a_stack, b_stack, mid_num, &lesser_left);
 			need_to_pull_lowers = false;
 		}
-		if (lesser_numbers_left)
+		if (lesser_left)
 			rotate_a(a_stack);
 	}
 	return pulled_len;

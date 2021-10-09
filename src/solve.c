@@ -1,19 +1,6 @@
 #include "../includes/push_swap.h"
 
-int get_chunk_size(t_list *stack, int chunk)
-{
-    int len;
-
-    len = 0;
-    while (stack && stack->chunk == chunk)
-    {
-        len++;
-        stack = stack->next;
-    }
-    return len;
-}
-
-bool is_stack_already_sorted(t_list *stack)
+static bool is_stack_already_sorted(t_list *stack)
 {
 	int current_number;
 	int next_number;
@@ -27,31 +14,6 @@ bool is_stack_already_sorted(t_list *stack)
 		stack = stack->next;
 	}
 	return true;
-}
-
-void insert_chunk_number(t_list **stack, int chunk)
-{
-	t_list *iterator;
-
-	iterator = (*stack);
-	while (iterator)
-	{
-		iterator->chunk = chunk;
-		iterator = iterator->next;
-	}
-}
-
-void insert_chunk_number_len(t_list **stack, int chunk, int len)
-{
-    t_list *iterator;
-
-    iterator = (*stack);
-    while (iterator && len)
-    {
-        iterator->chunk = chunk;
-        iterator = iterator->next;
-        len--;
-    }
 }
 
 void solve_two(t_list **a_stack)
@@ -103,7 +65,7 @@ static void serious_solve(t_list **a_stack, t_list **b_stack)
 
     current_chunk = 0;
 	total_chunk_number = 0;
-    insert_chunk_number(a_stack, current_chunk);
+    initialize_chunks(a_stack);
     while (!is_stack_already_sorted(*a_stack))
     {
 		stack_size = ft_lstsize(*a_stack);
