@@ -1,8 +1,8 @@
 #include "../includes/push_swap.h"
 
-int get_chunk_size(t_list *stack, int chunk)
+int	get_chunk_size(t_list *stack, int chunk)
 {
-	int len;
+	int	len;
 
 	len = 0;
 	while (stack && stack->chunk == chunk)
@@ -10,12 +10,12 @@ int get_chunk_size(t_list *stack, int chunk)
 		len++;
 		stack = stack->next;
 	}
-	return len;
+	return (len);
 }
 
-void initialize_chunks(t_list **stack)
+void	initialize_chunks(t_list **stack)
 {
-	t_list *iterator;
+	t_list	*iterator;
 
 	iterator = (*stack);
 	while (iterator)
@@ -25,9 +25,9 @@ void initialize_chunks(t_list **stack)
 	}
 }
 
-void insert_chunk_number_len(t_list **stack, int chunk, int len)
+void	insert_chunk_number_len(t_list **stack, int chunk, int len)
 {
-	t_list *iterator;
+	t_list	*iterator;
 
 	iterator = (*stack);
 	while (iterator && len)
@@ -38,3 +38,22 @@ void insert_chunk_number_len(t_list **stack, int chunk, int len)
 	}
 }
 
+void	pull_two_to_b(t_list **a_stack, t_list **b_stack)
+{
+	solve_two(a_stack);
+	push_b(a_stack, b_stack);
+	push_b(a_stack, b_stack);
+}
+
+void	pull_two_to_a(t_list **a_stack, t_list **b_stack)
+{
+	int	first;
+	int	second;
+
+	first = *(int *)(*b_stack)->content;
+	second = *(int *)(*b_stack)->next->content;
+	if (first < second)
+		swap_b(b_stack);
+	push_a(a_stack, b_stack);
+	push_a(a_stack, b_stack);
+}

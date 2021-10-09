@@ -1,8 +1,8 @@
 #include "../includes/push_swap.h"
 
-static void free_resources(t_list **a_stack, int argc, char **strings)
+static void	free_resources(t_list **a_stack, int argc, char **strings)
 {
-	char **temp;
+	char	**temp;
 
 	if (argc == 2)
 	{
@@ -17,66 +17,43 @@ static void free_resources(t_list **a_stack, int argc, char **strings)
 	ft_lstclear(a_stack, free);
 }
 
-static bool add_element_to_stack(char *str, t_list **a_stack)
+static bool	add_element_to_stack(char *str, t_list **a_stack)
 {
-	int *number;
-	t_list *element;
+	int		*number;
+	t_list	*element;
 
 	number = malloc(sizeof(int));
 	if (number == NULL)
-		return false;
+		return (false);
 	*number = ft_atoi(str);
 	element = ft_lstnew(number);
 	if (element == NULL)
 	{
 		free(number);
-		return false;
+		return (false);
 	}
 	ft_lstadd_back(a_stack, element);
-	return true;
+	return (true);
 }
 
-static bool fill_stack(t_list **a_stack, char **argv)
+static bool	fill_stack(t_list **a_stack, char **argv)
 {
 	while (*argv)
 	{
 		if (add_element_to_stack(*argv, a_stack) == false)
 		{
 			ft_lstclear(a_stack, free);
-			return false;
+			return (false);
 		}
 		argv++;
 	}
-	return true;
+	return (true);
 }
 
-void print_stack(t_list *stack)
+int	main(int argc, char **argv)
 {
-	while (stack)
-	{
-		int number = *(int *)stack->content;
-		printf("%d ", number);
-		stack = stack->next;
-	}
-	printf("\n");
-}
-
-void print_chunk(t_list *stack, int chunk)
-{
-	printf("chunk is: ");
-	while (stack && stack->chunk == chunk)
-	{
-		int number = *(int *)stack->content;
-		printf("%d ", number);
-		stack = stack->next;
-	}
-	printf("\n");
-}
-
-int main(int argc, char **argv)
-{
-	t_list *a_stack;
-	t_list *b_stack;
+	t_list	*a_stack;
+	t_list	*b_stack;
 
 	argv++;
 	a_stack = NULL;
@@ -86,9 +63,8 @@ int main(int argc, char **argv)
 	if (!argv || !*argv || !is_arg_valid(argv) || !fill_stack(&a_stack, argv))
 	{
 		ft_putendl_fd(ERROR_MESSAGE, STDOUT_FILENO);
-		return 1;
+		return (1);
 	}
 	solve(&a_stack, &b_stack);
-//	print_stack(a_stack); // TODO
 	free_resources(&a_stack, argc, argv);
 }

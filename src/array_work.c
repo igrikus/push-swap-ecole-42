@@ -1,13 +1,13 @@
 #include "../includes/push_swap.h"
 
-int *create_array_from_list(t_list *stack, int len)
+int	*create_array_from_list(t_list *stack, int len)
 {
-	int counter;
-	int *array;
+	int	counter;
+	int	*array;
 
 	array = malloc(sizeof(int) * len);
 	if (array == NULL)
-		return NULL;
+		return (NULL);
 	counter = 0;
 	while (counter < len)
 	{
@@ -18,11 +18,11 @@ int *create_array_from_list(t_list *stack, int len)
 	return (array);
 }
 
-void sort_array(int *array, int len)
+void	sort_array(int *array, int len)
 {
-	int i;
-	int j;
-	int temp;
+	int	i;
+	int	j;
+	int	temp;
 
 	i = 0;
 	while (i < len)
@@ -42,9 +42,9 @@ void sort_array(int *array, int len)
 	}
 }
 
-int		find_mid_value(t_list *stack, int len)
+int	find_mid_value(t_list *stack, int len)
 {
-	int *array;
+	int	*array;
 	int	mid_value;
 
 	array = create_array_from_list(stack, len);
