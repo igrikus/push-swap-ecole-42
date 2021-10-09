@@ -55,6 +55,11 @@ int	main(int argc, char **argv)
 	t_list	*a_stack;
 	t_list	*b_stack;
 
+	if (argc == 1)
+	{
+		ft_putendl_fd(PROMPT_MESSAGE, STDOUT_FILENO);
+		return (0);
+	}
 	argv++;
 	a_stack = NULL;
 	b_stack = NULL;

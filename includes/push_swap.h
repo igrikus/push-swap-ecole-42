@@ -6,6 +6,7 @@
 # include "../libft/libft.h"
 
 # define ERROR_MESSAGE "Error"
+# define PROMPT_MESSAGE "Pass as an arg numbers in the INT range, no duplicates"
 
 bool	is_arg_valid(char **argv);
 
