@@ -17,6 +17,7 @@ void rotate_b(t_list **b_stack);
 void reverse_rotate_a(t_list **a_stack);
 void reverse_rotate_b(t_list **b_stack);
 void solve(t_list **a_stack, t_list **b_stack);
+void solve_two(t_list **a_stack);
 int	find_mid_value(t_list *stack, int len);
 int get_chunk_size(t_list *stack, int chunk);
 void insert_chunk_number_len(t_list **stack, int chunk, int len);

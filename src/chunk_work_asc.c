@@ -1,20 +1,8 @@
 #include "../includes/push_swap.h"
 
-static void swap_two(t_list **a_stack)
-{
-	int first;
-	int second;
-
-	first = *(int *) (*a_stack)->content;
-	second = *(int *) (*a_stack)->next->content;
-
-	if (first > second)
-		swap_a(a_stack);
-}
-
 static void pull_two(t_list **a_stack, t_list **b_stack)
 {
-	swap_two(a_stack);
+	solve_two(a_stack);
 	push_b(a_stack, b_stack);
 	push_b(a_stack, b_stack);
 }
@@ -125,7 +113,7 @@ void pull_chunk_to_b(t_list **a_stack, t_list **b_stack, int *chunk, int pulled_
 	chunk_size = get_chunk_size(*a_stack, *chunk);
 	if (*chunk == 0 && chunk_size == 2)
 	{
-		swap_two(a_stack);
+		solve_two(a_stack);
 		(*chunk)--;
 		return;
 	}
