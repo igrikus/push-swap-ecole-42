@@ -58,7 +58,6 @@ static void	solve_three(t_list **a_stack)
 
 static void	serious_solve(t_list **a_stack, t_list **b_stack)
 {
-	int	stack_size;
 	int	current_chunk;
 	int	total_chunks;
 
@@ -67,21 +66,18 @@ static void	serious_solve(t_list **a_stack, t_list **b_stack)
 	initialize_chunks(a_stack);
 	while (!is_stack_already_sorted(*a_stack))
 	{
-		stack_size = ft_lstsize(*a_stack);
-		while (stack_size > 2)
+		while (ft_lstsize(*a_stack) > 2)
 		{
 			pull_chunk_to_b(a_stack, b_stack, &current_chunk, total_chunks);
-			stack_size = ft_lstsize(*a_stack);
-			if (stack_size > 2)
+			if (ft_lstsize(*a_stack) > 2)
 				total_chunks++;
 		}
 		solve_two(a_stack);
 		current_chunk = total_chunks;
-		while (stack_size > 0)
+		while (ft_lstsize(*b_stack) > 0)
 		{
 			pull_chunk_to_a(a_stack, b_stack, &current_chunk, total_chunks);
-			stack_size = ft_lstsize(*b_stack);
-			if (stack_size > 0)
+			if (ft_lstsize(*b_stack) > 0)
 				total_chunks++;
 		}
 		current_chunk = total_chunks;
