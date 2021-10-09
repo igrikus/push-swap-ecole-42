@@ -50,33 +50,20 @@ static int pull_chunk(t_list **a_stack, t_list **b_stack, int chunk_size)
 	int ra_count;
 
 	pulled_len = 0;
-	if (chunk_size == 1)
+	ra_count = 0;
+	mid_number = find_mid_value(*a_stack, chunk_size);
+	lesser_numbers_left = chunk_size / 2;
+	while (lesser_numbers_left)
 	{
-		push_b(a_stack, b_stack);
-		pulled_len = 1;
-	}
-	else if (chunk_size == 2)
-	{
-		pull_two(a_stack, b_stack);
-		pulled_len = 2;
-	}
-	else
-	{
-		ra_count = 0;
-		mid_number = find_mid_value(*a_stack, chunk_size);
-		lesser_numbers_left = chunk_size / 2;
-		while (lesser_numbers_left)
+		pulled_len += pull_uppers(a_stack, b_stack, mid_number, &lesser_numbers_left);
+		if (lesser_numbers_left)
 		{
-			pulled_len += pull_uppers(a_stack, b_stack, mid_number, &lesser_numbers_left);
-			if (lesser_numbers_left)
-			{
-				rotate_a(a_stack);
-				ra_count++;
-			}
+			rotate_a(a_stack);
+			ra_count++;
 		}
-		while (ra_count-- > 0)
-			reverse_rotate_a(a_stack);
 	}
+	while (ra_count-- > 0)
+		reverse_rotate_a(a_stack);
 	return pulled_len;
 }
 
@@ -111,17 +98,20 @@ void pull_chunk_to_b(t_list **a_stack, t_list **b_stack, int *chunk, int pulled_
 	int chunk_size;
 
 	chunk_size = get_chunk_size(*a_stack, *chunk);
-	if (*chunk == 0 && chunk_size == 2)
+	if (chunk_size <= 2)
 	{
-		solve_two(a_stack);
+		pulled_len = chunk_size;
 		(*chunk)--;
-		return;
+		if (*chunk == 0 && chunk_size == 2)
+			solve_two(a_stack);
+		else if (*chunk != 0 && chunk_size == 2)
+			pull_two(a_stack, b_stack);
+		else
+		push_b(a_stack, b_stack);
 	}
-	if (*chunk != 0)
+	else if (*chunk != 0)
 		pulled_len = pull_chunk(a_stack, b_stack, chunk_size);
 	else
 		pulled_len = pull_last_chunk(a_stack, b_stack, chunk_size);
-	if (chunk_size <= 2)
-		(*chunk)--;
 	insert_chunk_number_len(b_stack, pulled_chunk, pulled_len);
 }
