@@ -5,8 +5,8 @@ CFLAGS = -Wall -Wextra -Werror -g
 
 SRC_DIR = src/
 SRC_FILES = push_swap.c is_arg_valid.c movements.c array_work.c solve.c \
-			push_swap_wrappers.c rotate_wrappers.c chunk_work_asc.c chunk_work_desc.c \
-			chunk_helper.c
+			push_swap_wrappers.c rotate_wrappers.c push_chunk_to_a.c \
+			push_chunk_to_b.c chunk_helper.c
 
 
 SRC = $(addprefix $(SRC_DIR),$(SRC_FILES))

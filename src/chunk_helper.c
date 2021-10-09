@@ -25,7 +25,7 @@ void	initialize_chunks(t_list **stack)
 	}
 }
 
-void	insert_chunk_number_len(t_list **stack, int chunk, int len)
+void	insert_chunk_number(t_list **stack, int chunk, int len)
 {
 	t_list	*iterator;
 
@@ -38,7 +38,7 @@ void	insert_chunk_number_len(t_list **stack, int chunk, int len)
 	}
 }
 
-void	pull_two_to_b(t_list **a_stack, t_list **b_stack)
+void	push_two_to_b(t_list **a_stack, t_list **b_stack)
 {
 	solve_two(a_stack);
 	push_b(a_stack, b_stack);

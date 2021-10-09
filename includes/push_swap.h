@@ -27,13 +27,13 @@ int		find_mid_value(t_list *stack, int len);
 
 int		get_chunk_size(t_list *stack, int chunk);
 void	initialize_chunks(t_list **stack);
-void	insert_chunk_number_len(t_list **stack, int chunk, int len);
-void	pull_two_to_b(t_list **a_stack, t_list **b_stack);
+void	insert_chunk_number(t_list **stack, int chunk, int len);
+void	push_two_to_b(t_list **a_stack, t_list **b_stack);
 void	pull_two_to_a(t_list **a_stack, t_list **b_stack);
 
-void	pull_chunk_to_b(t_list **a_stack, t_list **b_stack, int *chunk,
-			int pulled_chunk);
-void	pull_chunk_to_a(t_list **a_stack, t_list **b_stack, int *chunk,
-			int pulled_chunk);
+void	push_chunk_to_b(t_list **a_stack, t_list **b_stack, int *chunk,
+			int pushed_chunk);
+void	push_chunk_to_a(t_list **a_stack, t_list **b_stack, int *chunk,
+			int pushed_chunk);
 
 #endif

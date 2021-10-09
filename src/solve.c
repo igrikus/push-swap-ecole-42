@@ -68,7 +68,7 @@ static void	serious_solve(t_list **a_stack, t_list **b_stack)
 	{
 		while (ft_lstsize(*a_stack) > 2)
 		{
-			pull_chunk_to_b(a_stack, b_stack, &current_chunk, total_chunks);
+			push_chunk_to_b(a_stack, b_stack, &current_chunk, total_chunks);
 			if (ft_lstsize(*a_stack) > 2)
 				total_chunks++;
 		}
@@ -76,7 +76,7 @@ static void	serious_solve(t_list **a_stack, t_list **b_stack)
 		current_chunk = total_chunks;
 		while (ft_lstsize(*b_stack) > 0)
 		{
-			pull_chunk_to_a(a_stack, b_stack, &current_chunk, total_chunks);
+			push_chunk_to_a(a_stack, b_stack, &current_chunk, total_chunks);
 			if (ft_lstsize(*b_stack) > 0)
 				total_chunks++;
 		}
