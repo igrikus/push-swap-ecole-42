@@ -5,8 +5,13 @@
 # include <stdbool.h>
 # include "../libft/libft.h"
 
+# define OK_MESSAGE "OK"
+# define KO_MESSAGE "KO"
 # define ERROR_MESSAGE "Error"
 # define PROMPT_MESSAGE "Yo man I need numbers in the INT range, no duplicates"
+
+bool	add_element_to_stack(char *str, t_list **a_stack);
+bool	fill_stack(t_list **a_stack, char **argv);
 
 bool	is_arg_valid(char **argv);
 
@@ -14,14 +19,18 @@ void	push_a(t_list **a_stack, t_list **b_stack);
 void	push_b(t_list **a_stack, t_list **b_stack);
 void	swap_a(t_list **a_stack);
 void	swap_b(t_list **b_stack);
+void	swap_both(t_list **a_stack, t_list **b_stack);
 
 void	rotate_a(t_list **a_stack);
 void	rotate_b(t_list **b_stack);
+void	rotate_both(t_list **a_stack, t_list **b_stack);
 void	reverse_rotate_a(t_list **a_stack);
 void	reverse_rotate_b(t_list **b_stack);
+void	reverse_rotate_both(t_list **a_stack, t_list **b_stack);
 
 void	solve(t_list **a_stack, t_list **b_stack);
 void	solve_two(t_list **a_stack);
+bool	is_stack_already_sorted(t_list *stack);
 
 int		find_mid_value(t_list *stack, int len);
 

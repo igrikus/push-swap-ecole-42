@@ -17,7 +17,7 @@ static void	free_resources(t_list **a_stack, int argc, char **strings)
 	ft_lstclear(a_stack, free);
 }
 
-static bool	add_element_to_stack(char *str, t_list **a_stack)
+bool	add_element_to_stack(char *str, t_list **a_stack)
 {
 	int		*number;
 	t_list	*element;
@@ -36,7 +36,7 @@ static bool	add_element_to_stack(char *str, t_list **a_stack)
 	return (true);
 }
 
-static bool	fill_stack(t_list **a_stack, char **argv)
+bool	fill_stack(t_list **a_stack, char **argv)
 {
 	while (*argv)
 	{

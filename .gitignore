@@ -54,4 +54,5 @@ dkms.conf
 .idea
 push_swap
 checker*
+!src/checker.c
 *tester*

@@ -1,6 +1,6 @@
 #include "../includes/push_swap.h"
 
-static bool	is_stack_already_sorted(t_list *stack)
+bool	is_stack_already_sorted(t_list *stack)
 {
 	int	current_number;
 	int	next_number;
