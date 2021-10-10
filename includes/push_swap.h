@@ -10,7 +10,6 @@
 # define ERROR_MESSAGE "Error"
 # define PROMPT_MESSAGE "Yo man I need numbers in the INT range, no duplicates"
 
-bool	add_element_to_stack(char *str, t_list **a_stack);
 bool	fill_stack(t_list **a_stack, char **argv);
 
 bool	is_arg_valid(char **argv);

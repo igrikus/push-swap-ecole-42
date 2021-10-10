@@ -1,21 +1,5 @@
 #include "../includes/push_swap.h"
 
-bool	is_stack_already_sorted(t_list *stack)
-{
-	int	current_number;
-	int	next_number;
-
-	while (stack->next)
-	{
-		current_number = *(int *) stack->content;
-		next_number = *(int *) stack->next->content;
-		if (current_number > next_number)
-			return (false);
-		stack = stack->next;
-	}
-	return (true);
-}
-
 void	solve_two(t_list **a_stack)
 {
 	int	first;

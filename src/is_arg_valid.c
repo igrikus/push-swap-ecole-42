@@ -63,3 +63,19 @@ bool	is_arg_valid(char **argv)
 		return (true);
 	return (false);
 }
+
+bool	is_stack_already_sorted(t_list *stack)
+{
+	int	current_number;
+	int	next_number;
+
+	while (stack->next)
+	{
+		current_number = *(int *) stack->content;
+		next_number = *(int *) stack->next->content;
+		if (current_number > next_number)
+			return (false);
+		stack = stack->next;
+	}
+	return (true);
+}
