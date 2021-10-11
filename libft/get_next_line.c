@@ -1,5 +1,20 @@
 #include "libft.h"
 
+char	*strchr_spec(const char *s, int c)
+{
+	if (s == NULL)
+		return (0);
+	while (*s)
+	{
+		if (*s == (char) c)
+			return ((char *) s);
+		s++;
+	}
+	if (*s == c)
+		return ((char *) s);
+	return (0);
+}
+
 size_t	ft_strlen_symbol(const char *s, char stop_symbol)
 {
 	size_t	len;
@@ -10,6 +25,29 @@ size_t	ft_strlen_symbol(const char *s, char stop_symbol)
 	while (s[len] && s[len] != stop_symbol)
 		len++;
 	return (len);
+}
+
+char	*strjoin_spec(char *s1, char const *s2)
+{
+	char			*result;
+	unsigned int	s1_len;
+	unsigned int	s2_len;
+	unsigned int	total_len;
+
+	s1_len = ft_strlen_symbol(s1, 0);
+	s2_len = ft_strlen_symbol(s2, 0);
+	total_len = s1_len + s2_len;
+	result = malloc(total_len + 1);
+	if (result == 0)
+		return (0);
+	while (s1_len && *s1)
+		*(result++) = *(s1++);
+	while (*s2)
+		*(result++) = *(s2++);
+	*result = 0;
+	if (s1)
+		free(s1 - s1_len);
+	return (result - total_len);
 }
 
 char	*substr_spec(char *s, unsigned int start, size_t len, int is_free_need)
@@ -46,7 +84,7 @@ int	return_func(char **remainder, ssize_t bytes_read)
 	if (*remainder == 0)
 		return (-1);
 	if (bytes_read > 0)
-		return (-1);
+		return (1);
 	if (bytes_read == 0)
 	{
 		free(*remainder);
@@ -61,13 +99,13 @@ char	*get_rem_with_slash_n(char *remainder, char *buf,
 	*bytes_read = 1;
 	while (*bytes_read > 0)
 	{
-		if (ft_strchr(remainder, '\n'))
+		if (strchr_spec(remainder, '\n'))
 			break ;
 		*bytes_read = read(fd, buf, 48);
 		if (*bytes_read == -1)
 			break ;
 		buf[*bytes_read] = 0;
-		remainder = ft_strjoin(remainder, buf);
+		remainder = strjoin_spec(remainder, buf);
 		if (remainder == 0)
 		{
 			free(buf);
