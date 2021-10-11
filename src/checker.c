@@ -16,25 +16,25 @@ int	error_situation(t_list **a_stack, t_list **b_stack, char *line)
 void	perform_command(t_list **a_stack, t_list **b_stack, char *line)
 {
 	if (ft_strcmp(line, PUSH_A) == 0)
-		push_a(a_stack, b_stack);
+		push(b_stack, a_stack);
 	else if (ft_strcmp(line, PUSH_B) == 0)
-		push_b(a_stack, b_stack);
+		push(a_stack, b_stack);
 	else if (ft_strcmp(line, SWAP_A) == 0)
-		swap_a(a_stack);
+		swap(a_stack);
 	else if (ft_strcmp(line, SWAP_B) == 0)
-		swap_b(b_stack);
+		swap(b_stack);
 	else if (ft_strcmp(line, SWAP_BOTH) == 0)
 		swap_both(a_stack, b_stack);
 	else if (ft_strcmp(line, ROTATE_A) == 0)
-		rotate_a(a_stack);
+		rotate(a_stack);
 	else if (ft_strcmp(line, ROTATE_B) == 0)
-		rotate_b(b_stack);
+		rotate(b_stack);
 	else if (ft_strcmp(line, ROTATE_BOTH) == 0)
 		rotate_both(a_stack, b_stack);
 	else if (ft_strcmp(line, REVERSE_ROTATE_A) == 0)
-		reverse_rotate_a(a_stack);
+		reverse_rotate(a_stack);
 	else if (ft_strcmp(line, REVERSE_ROTATE_B) == 0)
-		reverse_rotate_b(b_stack);
+		reverse_rotate(b_stack);
 	else if (ft_strcmp(line, REVERSE_ROTATE_BOTH) == 0)
 		reverse_rotate_both(a_stack, b_stack);
 	else

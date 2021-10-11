@@ -44,6 +44,11 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char const *s, char c);
+char		*strchr_spec(const char *s, int c);
+size_t		ft_strlen_symbol(const char *s, char stop_symbol);
+char		*strjoin_spec(char *s1, char const *s2);
+char		*substr_spec(char *s, unsigned int start, size_t len,
+				int is_free_need);
 int			get_next_line(int fd, char **line);
 char		*ft_itoa(int n);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
