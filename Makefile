@@ -19,6 +19,8 @@ PUSH_SWAP_OBJ = $(addprefix $(OBJ_DIR), $(PUSH_SWAP_OBJ_FILES))
 CHECKER_OBJ_FILES = $(patsubst %.c,%.o,$(CHECKER_FILES))
 CHECKER_OBJ = $(addprefix $(OBJ_DIR), $(CHECKER_OBJ_FILES))
 
+HEADER = includes/push_swap.h
+
 LIBFT_DIR = libft
 
 all: $(PUSH_SWAP) $(CHECKER)
@@ -27,15 +29,15 @@ $(PUSH_SWAP): $(PUSH_SWAP_OBJ)
 	@$(MAKE) -C $(LIBFT_DIR)
 	$(CC) -o $(PUSH_SWAP) $(PUSH_SWAP_OBJ) -L $(LIBFT_DIR) -lft
 
-$(PUSH_SWAP_OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+$(PUSH_SWAP_OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c $(HEADER)
+	$(CC) $(CFLAGS) -c -I $(HEADER) -o $@ $<
 
-$(CHECKER): $(CHECKER_OBJ)
+$(CHECKER): $(CHECKER_OBJ) $(HEADER)
 	@$(MAKE) -C $(LIBFT_DIR)
 	$(CC) -o $(CHECKER) $(CHECKER_OBJ) -L $(LIBFT_DIR) -lft
 
 $(CHECKER_OBJ): $(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -I $(HEADER) -o $@ $<
 
 clean:
 	@$(MAKE) clean -C $(LIBFT_DIR)
