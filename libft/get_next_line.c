@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bdamian <bdamian@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/12 19:23:45 by bdamian           #+#    #+#             */
+/*   Updated: 2021/10/12 19:26:16 by                  ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 int	return_func(char **remainder, ssize_t bytes_read)
@@ -15,7 +27,7 @@ int	return_func(char **remainder, ssize_t bytes_read)
 }
 
 char	*get_rem_with_slash_n(char *remainder, char *buf,
-							  int fd, ssize_t *bytes_read)
+								int fd, ssize_t *bytes_read)
 {
 	*bytes_read = 1;
 	while (*bytes_read > 0)

@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_chunk_to_b.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bdamian <bdamian@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/12 19:24:13 by bdamian           #+#    #+#             */
+/*   Updated: 2021/10/12 19:26:16 by                  ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/push_swap.h"
 
 static int	push_uppers(t_list **a_stack, t_list **b_stack, int mid_num,
-						  int *lesser_left)
+						int *lesser_left)
 {
 	int	pulled_count;
 	int	current_number;
@@ -19,7 +31,7 @@ static int	push_uppers(t_list **a_stack, t_list **b_stack, int mid_num,
 }
 
 static int	push_lowers(t_list **a_stack, t_list **b_stack, int mid_num,
-						  int *lesser_left)
+						int *lesser_left)
 {
 	int	pulled_count;
 	int	current_number;
